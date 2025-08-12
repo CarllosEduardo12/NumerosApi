@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+    <item name="android:windowBackground">@drawable/splash_screen</item>
 
     <style name="Theme.ApiHelio" parent="Base.Theme.ApiHelio" />
 </resources>

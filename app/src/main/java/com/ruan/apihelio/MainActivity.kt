@@ -2,12 +2,11 @@ package com.ruan.apihelio
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import com.ruan.apihelio.NumbersResponse
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +14,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnGetFact: Button
     private lateinit var btnGetDate: Button
     private lateinit var btnGetYear: Button
+    private lateinit var btnMath: Button
+    private lateinit var btnTrivia: Button
+    private lateinit var inputNumber: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,78 +26,79 @@ class MainActivity : AppCompatActivity() {
         btnGetFact = findViewById(R.id.btnGetFact)
         btnGetDate = findViewById(R.id.btnGetDate)
         btnGetYear = findViewById(R.id.btnGetYear)
+        btnMath = findViewById(R.id.btnMath)
+        btnTrivia = findViewById(R.id.btnTrivia)
+        inputNumber = findViewById(R.id.inputNumber)
 
-        btnGetFact.setOnClickListener{
-            getRandomNumber()
-        }
-
-        btnGetDate.setOnClickListener{
-            getRandomDateFact()
-        }
-
-        btnGetYear.setOnClickListener{
-            getRandomYear()
-        }
-
-        getRandomYear()
-        getRandomDateFact()
-        getRandomNumber()
+        btnGetFact.setOnClickListener { fetchRandomNumber() }
+        btnGetDate.setOnClickListener { fetchRandomDateFact() }
+        btnGetYear.setOnClickListener { fetchRandomYear() }
+        btnMath.setOnClickListener { fetchMathFact() }
+        btnTrivia.setOnClickListener { fetchTriviaFact() }
     }
 
-    private fun getRandomNumber() {
-        val call = ApiCliente.instance.getRandomNumber()
-        call.enqueue(object : Callback<NumbersResponse> {
-            override fun onResponse(
-                call: Call<NumbersResponse>,
-                response: Response<NumbersResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val numberFact = response.body()
-                    textFact.text = numberFact?.text ?: "Fato não encontrado"
-                } else {
-                    textFact.text = "Erro na resposta: ${response.code()}"
-                }
+    private fun fetchRandomNumber() {
+        lifecycleScope.launch {
+            try {
+                val response = ApiCliente.instance.getRandomNumber()
+                textFact.text = response.text
+            } catch (e: Exception) {
+                textFact.text = "Erro: ${e.message}"
             }
-
-            override fun onFailure(call: Call<NumbersResponse>, t: Throwable) {
-                textFact.text = "Falha: ${t.message}"
-            }
-        })
+        }
     }
 
-    private fun getRandomDateFact() {
-        val call = ApiCliente.instance.getRandomDateFact()
-        call.enqueue(object : Callback<NumbersResponse> {
-            override fun onResponse(call: Call<NumbersResponse>, response: Response<NumbersResponse>) {
-                if (response.isSuccessful) {
-                    val dateFact = response.body()
-                    textFact.text = dateFact?.text ?: "Fato não encontrado"
-                } else {
-                    textFact.text = "Erro na resposta: ${response.code()}"
-                }
+    private fun fetchRandomDateFact() {
+        lifecycleScope.launch {
+            try {
+                val response = ApiCliente.instance.getRandomDateFact()
+                textFact.text = response.text
+            } catch (e: Exception) {
+                textFact.text = "Erro: ${e.message}"
             }
-
-            override fun onFailure(call: Call<NumbersResponse>, t: Throwable) {
-                textFact.text = "Falha: ${t.message}"
-            }
-        })
+        }
     }
 
-    private fun getRandomYear() {
-        val call = ApiCliente.instance.getRandomYear()
-        call.enqueue(object : Callback<NumbersResponse> {
-            override fun onResponse(call: Call<NumbersResponse>, response: Response<NumbersResponse>) {
-                if (response.isSuccessful) {
-                    val yearFact = response.body()
-                    textFact.text = yearFact?.text ?: "Fato não encontrado"
-                } else {
-                    textFact.text = "Erro na resposta: ${response.code()}"
+    private fun fetchRandomYear() {
+        lifecycleScope.launch {
+            try {
+                val response = ApiCliente.instance.getRandomYear()
+                textFact.text = response.text
+            } catch (e: Exception) {
+                textFact.text = "Erro: ${e.message}"
+            }
+        }
+    }
+
+    private fun fetchMathFact() {
+        val num = inputNumber.text.toString().toIntOrNull()
+        if (num != null) {
+            lifecycleScope.launch {
+                try {
+                    val response = ApiCliente.instance.getMathFact(num)
+                    textFact.text = response.text
+                } catch (e: Exception) {
+                    textFact.text = "Erro: ${e.message}"
                 }
             }
+        } else {
+            textFact.text = "Digite um número válido."
+        }
+    }
 
-            override fun onFailure(call: Call<NumbersResponse>, t: Throwable) {
-                textFact.text = "Falha: ${t.message}"
+    private fun fetchTriviaFact() {
+        val num = inputNumber.text.toString().toIntOrNull()
+        if (num != null) {
+            lifecycleScope.launch {
+                try {
+                    val response = ApiCliente.instance.getTriviaFact(num)
+                    textFact.text = response.text
+                } catch (e: Exception) {
+                    textFact.text = "Erro: ${e.message}"
+                }
             }
-        })
+        } else {
+            textFact.text = "Digite um número válido."
+        }
     }
 }

@@ -24,12 +24,35 @@
         android:layout_height="wrap_content"
         android:text="Obter Fato sobre um ano"/>
 
+    <EditText
+        android:id="@+id/inputNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite um número"
+        android:inputType="number"
+        android:padding="12dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnMath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Obter Math Fact" />
+
+    <Button
+        android:id="@+id/btnTrivia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Obter Trivia Fact" />
+
     <TextView
         android:id="@+id/textFact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fato aparecerá aqui"
         android:textSize="18sp"
-        android:paddingTop="24dp" />
+        android:paddingTop="24dp"
+        android:textAlignment="center"/>
 
 </LinearLayout>

@@ -20,8 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        Handler(Looper.getMainLooper()).postDelayed({
+        setContentView(R.layout.activity_main)
+        
         textFact = findViewById(R.id.textFact)
         btnGetFact = findViewById(R.id.btnGetFact)
         btnGetDate = findViewById(R.id.btnGetDate)

@@ -17,3 +17,4 @@ Tecnologias utilizadas
 -Bibliotecas:
   -Retrofit
   -Coroutines
+Grupo: Ruan Marcílio, Carlos Eduardo, Jazon Miranda

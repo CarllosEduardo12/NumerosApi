@@ -1,58 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@color/LightSteelBlue">
 
-    <Button
-        android:id="@+id/btnGetFact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Obter fato aleatório" />
-
-    <Button
-        android:id="@+id/btnGetDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Obter fato sobre uma data"/>
-
-    <Button
-        android:id="@+id/btnGetYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Obter Fato sobre um ano"/>
-
-    <EditText
-        android:id="@+id/inputNumber"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Digite um número"
-        android:inputType="number"
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text"
-        android:layout_marginBottom="16dp"/>
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/btnMath"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Obter Math Fact" />
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Numbers API"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginBottom="24dp"/>
 
-    <Button
-        android:id="@+id/btnTrivia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Obter Trivia Fact" />
+        <Button
+            android:id="@+id/btnGetFact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Obter Fato Aleatório"
+            android:backgroundTint="#F0F8FF"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="12dp"/>
 
-    <TextView
-        android:id="@+id/textFact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fato aparecerá aqui"
-        android:textSize="18sp"
-        android:paddingTop="24dp"
-        android:textAlignment="center"/>
+        <Button
+            android:id="@+id/btnGetDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fato sobre uma Data"
+            android:backgroundTint="#F0F8FF"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="12dp"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnGetYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fato sobre um Ano"
+            android:backgroundTint="#F0F8FF"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/inputNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite um número..."
+            android:inputType="number"
+            android:padding="14dp"
+            android:backgroundTint="@color/black"
+            android:drawableStart="@android:drawable/ic_input_add"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnMath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fato de matemática sobre esse número"
+            android:backgroundTint="#F0F8FF"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnTrivia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fato sobre esse número"
+            android:backgroundTint="#F0F8FF"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:id="@+id/textFact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="O fato aparecerá aqui..."
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+</ScrollView>

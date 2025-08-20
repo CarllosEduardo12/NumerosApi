@@ -1,11 +1,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Fundo branco -->
     <item android:drawable="@color/white" />
 
-    <!-- Logo central -->
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/app_icone_background"/>
     </item>
 </layer-list>

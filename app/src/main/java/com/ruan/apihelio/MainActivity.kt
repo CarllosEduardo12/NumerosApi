@@ -4,103 +4,93 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     private lateinit var textFact: TextView
-    private lateinit var btnGetFact: Button
-    private lateinit var btnGetDate: Button
-    private lateinit var btnGetYear: Button
-    private lateinit var btnMath: Button
-    private lateinit var btnTrivia: Button
     private lateinit var inputNumber: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Handler(Looper.getMainLooper()).postDelayed({
+        installSplashScreen()
         setContentView(R.layout.activity_main)
-        
+
         textFact = findViewById(R.id.textFact)
-        btnGetFact = findViewById(R.id.btnGetFact)
-        btnGetDate = findViewById(R.id.btnGetDate)
-        btnGetYear = findViewById(R.id.btnGetYear)
-        btnMath = findViewById(R.id.btnMath)
-        btnTrivia = findViewById(R.id.btnTrivia)
         inputNumber = findViewById(R.id.inputNumber)
 
-        btnGetFact.setOnClickListener { fetchRandomNumber() }
-        btnGetDate.setOnClickListener { fetchRandomDateFact() }
-        btnGetYear.setOnClickListener { fetchRandomYear() }
-        btnMath.setOnClickListener { fetchMathFact() }
-        btnTrivia.setOnClickListener { fetchTriviaFact() }
-    }
+        val btnGetFact: Button = findViewById(R.id.btnGetFact)
+        val btnGetDate: Button = findViewById(R.id.btnGetDate)
+        val btnGetYear: Button = findViewById(R.id.btnGetYear)
+        val btnMath: Button = findViewById(R.id.btnMath)
+        val btnTrivia: Button = findViewById(R.id.btnTrivia)
 
-    private fun fetchRandomNumber() {
-        lifecycleScope.launch {
-            try {
-                val response = ApiCliente.instance.getRandomNumber()
-                textFact.text = response.text
-            } catch (e: Exception) {
-                textFact.text = "Erro: ${e.message}"
-            }
-        }
-    }
-
-    private fun fetchRandomDateFact() {
-        lifecycleScope.launch {
-            try {
-                val response = ApiCliente.instance.getRandomDateFact()
-                textFact.text = response.text
-            } catch (e: Exception) {
-                textFact.text = "Erro: ${e.message}"
-            }
-        }
-    }
-
-    private fun fetchRandomYear() {
-        lifecycleScope.launch {
-            try {
-                val response = ApiCliente.instance.getRandomYear()
-                textFact.text = response.text
-            } catch (e: Exception) {
-                textFact.text = "Erro: ${e.message}"
-            }
-        }
-    }
-
-    private fun fetchMathFact() {
-        val num = inputNumber.text.toString().toIntOrNull()
-        if (num != null) {
+        btnGetFact.setOnClickListener {
             lifecycleScope.launch {
                 try {
-                    val response = ApiCliente.instance.getMathFact(num)
-                    textFact.text = response.text
+                    val fact = ApiCliente.instance.getRandomNumber()
+                    textFact.text = fact.text
                 } catch (e: Exception) {
                     textFact.text = "Erro: ${e.message}"
                 }
             }
-        } else {
-            textFact.text = "Digite um número válido."
         }
-    }
 
-    private fun fetchTriviaFact() {
-        val num = inputNumber.text.toString().toIntOrNull()
-        if (num != null) {
+        btnGetDate.setOnClickListener {
             lifecycleScope.launch {
                 try {
-                    val response = ApiCliente.instance.getTriviaFact(num)
-                    textFact.text = response.text
+                    val fact = ApiCliente.instance.getRandomDateFact()
+                    textFact.text = fact.text
                 } catch (e: Exception) {
                     textFact.text = "Erro: ${e.message}"
                 }
             }
-        } else {
-            textFact.text = "Digite um número válido."
+        }
+
+        btnGetYear.setOnClickListener {
+            lifecycleScope.launch {
+                try {
+                    val fact = ApiCliente.instance.getRandomYear()
+                    textFact.text = fact.text
+                } catch (e: Exception) {
+                    textFact.text = "Erro: ${e.message}"
+                }
+            }
+        }
+
+        btnMath.setOnClickListener {
+            val number = inputNumber.text.toString()
+            if (number.isNotEmpty()) {
+                lifecycleScope.launch {
+                    try {
+                        val fact = ApiCliente.instance.getMathFact(number.toInt())
+                        textFact.text = fact.text
+                    } catch (e: Exception) {
+                        textFact.text = "Erro: ${e.message}"
+                    }
+                }
+            } else {
+                textFact.text = "Digite um número primeiro."
+            }
+        }
+
+        btnTrivia.setOnClickListener {
+            val number = inputNumber.text.toString()
+            if (number.isNotEmpty()) {
+                lifecycleScope.launch {
+                    try {
+                        val fact = ApiCliente.instance.getTriviaFact(number.toInt())
+                        textFact.text = fact.text
+                    } catch (e: Exception) {
+                        textFact.text = "Erro: ${e.message}"
+                    }
+                }
+            } else {
+                textFact.text = "Digite um número primeiro."
+            }
         }
     }
 }
